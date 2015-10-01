@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%= themeLabel %></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <%= depsCss %>
+
+    </head>
+
+    <body>
+
+        //=include theme/template.html
+
+        <script type="text/javascript">
+            window.LB = {
+                blog: {
+                    description: "Sourcefabric's annual retreat coverage",
+                    _id: "560a494a2a96c2a95fd7c3be",
+                    picture_url: "http://liveblog-test-eu-west-1.s3-eu-west-1.amazonaws.com/c5bd39ccec48d47bc5c611581df1e2c5d64edfd971f22b65dae3155ba58b6771",
+                    title: "Sourcecamp 2015",
+                    blog_preferences: {"language": "en",
+                    theme: "default-theme"}
+                },
+                settings: {"postsPerPage": 20, "permalinkDelimiter": "?", "showAuthor": true},
+                api_host: 'http://liveblog.demo.superdesk.org/',
+                assets_root: '/theme/'
+            };
+        </script>
+
+        <%= depsJavascript %>
+
+    </body>
+</html>

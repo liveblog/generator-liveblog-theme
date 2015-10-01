@@ -1,0 +1,34 @@
+{
+    "name": "<%= themeName %>",
+    "label": "<%= themeLabel %>",
+    "version": "1.0.0",
+<% if (useAngularBase) { %>
+    "extends": "angular-base",
+<% } %>
+    "styles": [
+        "styles/reset.css",
+        "styles/embed.css",
+        "//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic",
+        "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    ],
+    "scripts": [
+<% if (useAngularBase) { %>
+        "//code.angularjs.org/1.4.2/angular-animate.js",
+        "vendors/ng-infinite-scroll.min.js",
+<% } %>
+        "main.js"
+    ],
+    "author": "<%= authorName %>",
+    "license": "AGPL-3.0",
+    "options": [
+<% if (useAngularBase) { %>
+        {
+            "name": "showAuthor",
+            "label": "Show Author",
+            "type": "checkbox",
+            "default": true,
+            "help": "Show the author information on posts"
+        }
+<% } %>
+    ]
+}
