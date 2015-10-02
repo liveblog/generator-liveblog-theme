@@ -8,7 +8,6 @@ import {stream as wiredep} from 'wiredep';
 const fs = require('fs');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const theme = JSON.parse(fs.readFileSync('theme/theme.json', 'utf8'));
 
 
 function lint(files, options) {
@@ -24,6 +23,7 @@ function lint(files, options) {
 gulp.task('lint', lint('theme/*.js'));
 
 gulp.task('embed', () => {
+    var theme = JSON.parse(fs.readFileSync('theme/theme.json', 'utf8'));
     function prependIfLocal(url, prefix) {
         if (!url) { return [];}
         return url.map(function(source) {
@@ -34,12 +34,13 @@ gulp.task('embed', () => {
         });
     }
     var depsCss = [], depsJavascript = [];
-    <% if (useAngularBase) { %>
+<% if (useAngularBase) { %>
+
     // angular base
     var angularBase = JSON.parse(fs.readFileSync('deps/angular-base/theme.json', 'utf8'));
     depsCss = prependIfLocal(angularBase.styles, 'deps/angular-base/');
     depsJavascript = prependIfLocal(angularBase.scripts, 'deps/angular-base/');
-    <% } %>
+<% } %>
     // custom theme
     depsCss = depsCss.concat(prependIfLocal(theme.styles, 'theme/'));
     depsJavascript = depsJavascript.concat(prependIfLocal(theme.scripts, 'theme/'));
@@ -75,13 +76,10 @@ gulp.task('serve', ['lint', 'embed'], () => {
     });
 
     gulp.watch([
-        'theme/*.html',
-        'theme/scripts/**/*.js',
-        'theme/images/**/*',
-        '.tmp/fonts/**/*',
+        'theme/**',
         '.tmp/*',
     ]).on('change', reload);
-    gulp.watch('embed.html', ['embed']);
+    gulp.watch(['embed.html', 'theme/template.html', 'theme/theme.json'], ['embed']);
     gulp.watch('bower.json', ['wiredep']);
 });
 
@@ -95,6 +93,7 @@ gulp.task('wiredep', () => {
 });
 
 gulp.task('build', ['lint'], () => {
+    var theme = JSON.parse(fs.readFileSync('theme/theme.json', 'utf8'));
     return gulp.src(['theme/**/*'])
         .pipe($.zip(theme.name + '-' + new Date().toISOString().slice(0, 10) + '.zip'))
         .pipe(gulp.dest('dist'))
