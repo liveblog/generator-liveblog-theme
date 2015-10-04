@@ -74,7 +74,8 @@ module.exports = yeoman.generators.Base.extend({
                     path: '.gitattributes'
                 },
                 {
-                    path: '.gitignore'
+                    path: 'gitignore',
+                    rename: '.gitignore'
                 },
                 {
                     path: '.yo-rc.json'
@@ -103,13 +104,13 @@ module.exports = yeoman.generators.Base.extend({
                 if (file.template) {
                     generator.fs.copyTpl(
                         generator.templatePath(file.path),
-                        generator.destinationPath(file.path),
+                        generator.destinationPath(file.rename || file.path),
                         generator.props
                     );
                 } else {
                     generator.fs.copy(
                         generator.templatePath(file.path),
-                        generator.destinationPath(file.path)
+                        generator.destinationPath(file.rename || file.path)
                     );
                 }
             });
