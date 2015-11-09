@@ -1,15 +1,19 @@
 {
-    "label": "Angular Base",
-    "name": "angular-base",
+    "label": "Angular Based Theme",
+    "name": "angular",
     "abstract": true,
     "version": "1.1.0",
     "author": "Edouard Richard <edouard.richard@sourcefabric.org>",
+    "repository": {
+        "type" : "git",
+        "url" : "git@github.com:liveblog/lb-theme-angular.git"
+    },
     "license": "AGPL-3.0",
     "scripts": [
-        "vendors/jquery.min.js",
-        "vendors/angular-1.4.2.min.js",
-        "vendors/angular-resource-1.4.2.js",
-        "vendors/moment.min.js",
+        "//code.jquery.com/jquery-1.11.3.min.js",
+        "//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js",
+        "//code.angularjs.org/1.4.2/angular-resource.js",
+        "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js",
         "vendors/lodash.min.js",
         "vendors/iframeResizer.contentWindow.min.js",
         "liveblog-embed/main.js",
@@ -29,7 +33,7 @@
         },
         {
             "name": "permalinkDelimiter",
-            "label": "Permalin Delimiter",
+            "label": "Permalink Delimiter",
             "type": "select",
             "options": [
                 {"value": "?", "label": "Query delimiter"},

@@ -37,9 +37,9 @@ gulp.task('embed', () => {
 <% if (useAngularBase) { %>
 
     // angular base
-    var angularBase = JSON.parse(fs.readFileSync('deps/angular-base/theme.json', 'utf8'));
-    depsCss = prependIfLocal(angularBase.styles, 'deps/angular-base/');
-    depsJavascript = prependIfLocal(angularBase.scripts, 'deps/angular-base/');
+    var angularBase = JSON.parse(fs.readFileSync('deps/angular/theme.json', 'utf8'));
+    depsCss = prependIfLocal(angularBase.styles, 'deps/angular/');
+    depsJavascript = prependIfLocal(angularBase.scripts, 'deps/angular/');
 <% } %>
     // custom theme
     depsCss = depsCss.concat(prependIfLocal(theme.styles, 'theme/'));

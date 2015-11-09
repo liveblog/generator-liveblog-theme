@@ -1,9 +1,9 @@
 {
     "name": "<%= themeName %>",
     "label": "<%= themeLabel %>",
-    "version": "1.0.0",
+    "version": "2.1.0",
 <% if (useAngularBase) { %>
-    "extends": "angular-base",
+    "extends": "angular",
 <% } %>
     "styles": [
         "styles/reset.css",
@@ -23,8 +23,26 @@
     "options": [
 <% if (useAngularBase) { %>
         {
+            "name": "postsPerPage",
+            "label": "Number of posts per page",
+            "type": "number",
+            "default": 20,
+            "help": "Set the number of posts you want to see at the initialization"
+        },
+        {
+            "name": "permalinkDelimiter",
+            "label": "Permalink delimiter",
+            "type": "select",
+            "options": [
+                {"value": "?", "label": "Query delimiter"},
+                {"value": "#", "label": " Fragment identifier delimiter"}
+            ],
+            "default": "?",
+            "help": "Sets the delimiter used to send the permalink. ex: permalinkHashMark=?, http://example.com/?..."
+        },
+        {
             "name": "showAuthor",
-            "label": "Show Author",
+            "label": "Show author",
             "type": "checkbox",
             "default": true,
             "help": "Show the author information on posts"
