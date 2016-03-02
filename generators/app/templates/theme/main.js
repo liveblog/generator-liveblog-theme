@@ -1,4 +1,3 @@
-<% if (useAngularBase) { %>
 (function(angular) {
     'use strict';
 
@@ -6,16 +5,27 @@
     function TimelineCtrl($interval, PagesManager, blogsService, config, $anchorScroll, $timeout, Permalink) {
 
         var POSTS_PER_PAGE = config.settings.postsPerPage;
-        var SHOW_AUTHOR = config.settings.showAuthor;
         var PERMALINK_DELIMITER = config.settings.permalinkDelimiter || '?';
-        var DEFAULT_ORDER = 'editorial'; // newest_first, oldest_first or editorial
+        var DEFAULT_ORDER = config.settings.postOrder; // newest_first, oldest_first or editorial
+        var UPDATE_MANUALLY = config.settings.loadNewPostsManually;
         var UPDATE_EVERY = 10 * 1000; // retrieve update interval in millisecond
         var vm = this;
         var pagesManager = new PagesManager(POSTS_PER_PAGE, DEFAULT_ORDER),
             permalink = new Permalink(pagesManager, PERMALINK_DELIMITER);
 
         function retrieveUpdate() {
-            return vm.pagesManager.retrieveUpdate(true);
+            return vm.pagesManager.retrieveUpdate(!UPDATE_MANUALLY).then(function(data) {
+                vm.newPosts = data._items;
+            });
+        }
+
+        // set the value of illustration "srcset" attribute
+        if (config.blog.picture) {
+            config.blog.picture_srcset = _.values(config.blog.picture.renditions).map(
+                function(r) {
+                    return r.href + ' ' + r.width + 'w';
+                }
+            ).join(', ');
         }
         // define view model
         angular.extend(vm, {
@@ -23,7 +33,8 @@
             blog: config.blog,
             loading: true,
             finished: false,
-            showAuthor: SHOW_AUTHOR,
+            settings: config.settings,
+            newPosts: [],
             orderBy: function(orderBy) {
                 vm.loading = true;
                 vm.finished = false;
@@ -51,6 +62,10 @@
             isAllowedToLoadMore: function() {
                 return !vm.loading && !vm.finished;
             },
+            applyUpdates: function() {
+                pagesManager.applyUpdates(vm.newPosts);
+                vm.newPosts = [];
+            },
             pagesManager: pagesManager,
             permalink: permalink
         });
@@ -60,6 +75,14 @@
         .then(function() {
             vm.permalinkScroll();
             $interval(retrieveUpdate, UPDATE_EVERY);
+            // listen events from parent
+            var fetchNewPageDebounced = _.debounce(vm.fetchNewPage, 1000);
+            function receiveMessage(event) {
+                if (event.data === 'loadMore') {
+                    fetchNewPageDebounced();
+                }
+            }
+            window.addEventListener('message', receiveMessage, false);
         });
     }
 
@@ -68,4 +91,3 @@
     angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
 
 })(angular);
-<% } %>

@@ -1,7 +1,8 @@
 {
   "rules": {
       "no-use-before-define": [2, "nofunc"],
-      "no-underscore-dangle": false
+      "no-underscore-dangle": false,
+      "camelcase": [2, {"properties": "never"}]
   },
   "globals": {
     "JSON": false,
