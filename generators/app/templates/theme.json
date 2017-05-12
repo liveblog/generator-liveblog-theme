@@ -1,32 +1,30 @@
 {
-    "name": "<%= themeName %>",
-    "label": "<%= themeLabel %>",
-    "version": "1.0.0",
-<% if (useAngularBase) { %>
-    "extends": "angular",
-<% } %>
-    "styles": [
-        "styles/reset.css",
-        "styles/embed.css",
-        "//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic",
-        "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    "label": "Liveblog 3 Example Theme",
+    "name": "example",
+    "version": "0.1.0",
+    "seoTheme": true,
+    "author": "Sourcefabric <contact@sourcefabric.org>",
+    "contributors": [
+        "Paul Solbach <psolbach@dpa-newslab.com>",
+        "Massimo Scamarcia <massimo.scamarcia@sourcefabric.org>",
+        "Löic Nogues <loic.nogues@sourcefabric.org>",
+        "Aleksandar Backo Jelicic <aleksandar.jelicic@sourcefabric.org>"
     ],
-    "scripts": [
-<% if (useAngularBase) { %>
-        "//code.angularjs.org/1.4.2/angular-animate.js",
-        "vendors/ng-infinite-scroll.min.js",
-<% } %>
-        "main.js"
-    ],
-    "author": "<%= authorName %>",
+    "repository": {
+        "type" : "git",
+        "url" : "git@github.com:liveblog/liveblog-default-theme"
+    },
     "license": "AGPL-3.0",
+    "devStyles": ["dist/undefined"],
+    "devScripts": ["dist/undefined"],
+    "styles": ["dist/undefined"],
+    "scripts": ["dist/undefined"],
     "options": [
-<% if (useAngularBase) { %>
         {
             "name": "postsPerPage",
             "label": "Number of posts per page",
             "type": "number",
-            "default": 20,
+            "default": 10,
             "help": "Set the number of posts you want to see at the initialization"
         },
         {
@@ -41,36 +39,50 @@
             "default": "editorial"
         },
         {
-            "name": "loadNewPostsManually",
-            "label": "User needs to click a button to retrieve the new posts",
+            "name": "autoApplyUpdates",
+            "label": "All updates including creates are auto-applied periodically.",
             "type": "checkbox",
             "default": true,
-            "help": "Otherwise they will be loaded periodically"
+            "help": "Turn off to prompt user to load updates"
         },
         {
-            "name": "infinitScroll",
-            "label": "Use infinit scroll to load more pages",
+            "name": "showLiveblogLogo",
+            "label": "Show Liveblog logo.",
             "type": "checkbox",
             "default": true,
-            "help": "if true, more pages are automatically loaded when the bottom of the page is reached. Otherwise a button is added at the bottom of the posts list"
+            "help": "Show the liveblog logo"
+        },
+        {
+            "name": "autoApplyEdits",
+            "label": "Edits, deletes are applied without prompt",
+            "type": "checkbox",
+            "default": false,
+            "help": "Otherwise they will pop up as new posts."
+        },
+        {
+            "name": "canComment",
+            "label": "Users can comment",
+            "type": "checkbox",
+            "default": false,
+            "help": "If the users can comment on the blog"
         },
         {
             "name": "showImage",
             "label": "Show the blog image",
             "type": "checkbox",
-            "default": true
+            "default": false
         },
         {
             "name": "showTitle",
             "label": "Show the blog title",
             "type": "checkbox",
-            "default": true
+            "default": false
         },
         {
             "name": "showDescription",
             "label": "Show the blog description",
             "type": "checkbox",
-            "default": true
+            "default": false
         },
         {
             "name": "showAuthor",
@@ -105,26 +117,30 @@
             "help": "How to show the author name"
         },
         {
-            "name": "authorNameLinksToEmail",
-            "label": "The author name links to email",
+            "name": "hasHighlights",
+            "label": "Has highlights",
             "type": "checkbox",
             "default": false,
-            "dependsOn": {
-                "showAuthor": true
-            },
-            "help": "A click to the author name will create a new mail to be sent to the author."
+            "help": "If the users see the highlight button in embed"
         },
         {
-            "name": "permalinkDelimiter",
-            "label": "Permalink delimiter",
-            "type": "select",
-            "options": [
-                {"value": "?", "label": "Query delimiter (?)"},
-                {"value": "#", "label": " Fragment identifier delimiter (#)"}
-            ],
-            "default": "?",
-            "help": "Sets the delimiter used to send the permalink. ex: permalinkHashMark=?, http://example.com/?..."
+            "name": "blockSearchEngines",
+            "label": "Block search engines",
+            "type": "checkbox",
+            "default": true,
+            "help": "Block search engines from indexing my blogs"
         }
-<% } %>
-    ]
+    ],
+    "l10n": {
+        "loadMore": "Load More",
+        "ascending": "Oldest first",
+        "descending": "Newest first",
+        "editorial": "Editorial",
+        "loadNewPosts": "Load new posts",
+        "timeAgo": {
+            "d": {"s": "A day ago", "p": "{} days ago"},
+            "h": {"s": "An hour ago", "p": "{} hours ago"},
+            "m": {"s": "A minute ago", "p": "{} minutes ago"}
+        }
+    }
 }
