@@ -1,126 +1,68 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var _s = require('underscore.string');
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
-    prompting: function () {
-        var done = this.async();
+module.exports = class extends Generator {
+  prompting() {
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      'Welcome to the brilliant ' + chalk.red('generator-lbtheme') + ' generator!'
+    ));
 
-        // Have Yeoman greet the user.
-        this.log(yosay(
-            'Welcome to the ' + chalk.red('LiveblogTheme') + ' generator!'
-        ));
-        var prompts = [
-            {
-                type: 'input',
-                name: 'themeLabel',
-                message: 'What is the name of the theme ?',
-                default: this.appname
-            },
-            {
-                type: 'input',
-                name: 'authorName',
-                message: 'What is your name ?',
-                default: 'anonymous'
-            },
-            {
-                type: 'confirm',
-                name: 'useAngularBase',
-                message: 'Would you like to use angular ?',
-                default: true
-            }
-        ];
+    const prompts = [
+      {
+        type: 'confirm',
+        name: 'someAnswer',
+        message: 'Would you like to create a new liveblog theme in the current directory?',
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Your theme name',
+        default: this.appname
+      },
+      {
+        type: 'input',
+        name: 'label',
+        message: 'Your theme title',
+        default: 'My Super Theme'
+      }
+    ];
 
-        this.prompt(prompts, function (props) {
-            props.themeName = _s.dasherize(props.themeLabel);
-            this.props = props;
-            // To access props later use this.props.someOption;
-            done();
-        }.bind(this));
-    },
+    return this.prompt(prompts).then(props => {
+      // To access props later use this.props.someAnswer;
+      this.props = props;
+    });
+  }
 
-    writing: {
-        app: function () {
-            var files = [
-                {
-                    path: 'deps',
-                    hide: !this.props.useAngularBase
-                },
-                {
-                    path: 'bower.json'
-                },
-                {
-                    path: 'embed.html'
-                },
-                {
-                    path: 'gulpfile.babel.js',
-                    template: true
-                },
-                {
-                    path: 'package.json'
-                },
-                {
-                    path: '.bowerrc'
-                },
-                {
-                    path: '.editorconfig'
-                },
-                {
-                    path: '.eslintrc'
-                },
-                {
-                    path: '.gitattributes'
-                },
-                {
-                    path: 'gitignore',
-                    rename: '.gitignore'
-                },
-                {
-                    path: '.yo-rc.json'
-                },
-                {
-                    path: 'theme'
-                },
-                {
-                    path: 'theme/main.js',
-                    template: true
-                },
-                {
-                    path: 'theme/template.html',
-                    template: true
-                },
-                {
-                    path: 'theme/theme.json',
-                    template: true
-                }
-            ];
-            var generator = this;
-            files.forEach(function(file) {
-                if (file.hide) {
-                    return;
-                }
-                if (file.template) {
-                    generator.fs.copyTpl(
-                        generator.templatePath(file.path),
-                        generator.destinationPath(file.rename || file.path),
-                        generator.props
-                    );
-                } else {
-                    generator.fs.copy(
-                        generator.templatePath(file.path),
-                        generator.destinationPath(file.rename || file.path)
-                    );
-                }
-            });
-        }
-    },
+  writing() {
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      { name: this.props.name }
+    );
 
-    install: function () {
-        this.installDependencies({
-            bower: false,
-            npm: true
-        });
-    }
-});
+    this.fs.copyTpl(
+      this.templatePath('_Makefile'),
+      this.destinationPath('Makefile'),
+      { name: this.props.name }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_theme.json'),
+      this.destinationPath('theme.json'),
+      { name: this.props.name, label: this.props.label }
+    );
+
+    this.fs.copy(
+      this.templatePath('gulpfile.js'),
+      this.destinationPath('gulpfile.js')
+    );
+  }
+
+  install() {
+    this.npmInstall();
+  }
+};

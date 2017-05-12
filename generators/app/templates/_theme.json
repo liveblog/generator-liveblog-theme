@@ -1,6 +1,6 @@
 {
-    "label": "Liveblog 3 Example Theme",
-    "name": "example",
+    "label": "<%= label %>",
+    "name": "<%= name %>",
     "version": "0.1.0",
     "seoTheme": true,
     "author": "Sourcefabric <contact@sourcefabric.org>",
