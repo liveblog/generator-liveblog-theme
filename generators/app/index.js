@@ -22,13 +22,13 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'name',
         message: 'Your theme name',
-        default: this.appname
+        default: this.appname.replace(/\s/g, '-')
       },
       {
         type: 'input',
         name: 'label',
         message: 'Your theme title',
-        default: 'My Super Theme'
+        default: this.appname
       }
     ];
 
