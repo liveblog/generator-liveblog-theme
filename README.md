@@ -1,39 +1,44 @@
 # generator-liveblog-theme
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io)
 
+
+The generator allows you to easily create and scaffold your own liveblog themes.
 
 ## Getting Started
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+First some dependencies need to be installed:
 
 ```bash
-npm install -g yo
+npm install -g yo generator-liveblog-theme
 ```
 
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-liveblog-theme from npm, run:
+Then, initiate the generator inside an empty working directory
 
 ```bash
-npm install -g generator-liveblog-theme
-```
-
-Finally, initiate the generator:
-
-```bash
+mkdir my-fantastic-theme
+cd my-fantastic-theme
 yo liveblog-theme
 ```
+Here is the resulting directory structure of your new theme:
+```bash
+my-fantastic-theme $ ls   
+▕ drwxr-xr-x▏32 sec │   4K│less
+▕ drwxr-xr-x▏<  sec │  20K│node_modules
+▕ drwxr-xr-x▏32 sec │   4K│templates
+▕ -rw-r--r--▏32 sec │ 322B│Makefile
+▕ -rw-r--r--▏32 sec │  95B│gulpfile.js
+▕ -rw-r--r--▏32 sec │   1K│package.json
+▕ -rw-r--r--▏32 sec │   4K│theme.json
+```
+You can now start your theme development server with:
+```bash
+gulp watch-static
+```
+
+Custom theme allow you to do two different things:
+* Extend templates, by creating your own template following this [naming convention](https://github.com/liveblog/liveblog-default-theme/tree/master/templates) inside the `templates/` directory
+* Create your own css. Just a file with the `.less` extension inside the `less/` directory, and this one will automatically be appended at the end of the existing CSS.
 
 
 ## License
