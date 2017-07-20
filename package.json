@@ -20,10 +20,11 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "1.1.1",
     "chalk": "^1.0.0",
-    "yosay": "^2.0.0",
-    "underscore.string": "^3.2.2"
+    "mkdirp": "^0.5.1",
+    "underscore.string": "^3.2.2",
+    "yeoman-generator": "1.1.1",
+    "yosay": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "*"

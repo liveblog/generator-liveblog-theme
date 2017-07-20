@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
   prompting() {
@@ -60,6 +61,9 @@ module.exports = class extends Generator {
       this.templatePath('gulpfile.js'),
       this.destinationPath('gulpfile.js')
     );
+
+    mkdirp.sync('templates');
+    mkdirp.sync('less');
   }
 
   install() {
