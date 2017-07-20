@@ -62,8 +62,8 @@ module.exports = class extends Generator {
       this.destinationPath('gulpfile.js')
     );
 
-    mkdirp.sync('templates');
-    mkdirp.sync('less');
+    mkdirp('templates');
+    mkdirp('less');
   }
 
   install() {
