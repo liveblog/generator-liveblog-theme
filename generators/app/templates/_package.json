@@ -1,26 +1,28 @@
 {
   "name": "<%= name %>",
   "version": "0.0.1",
-  "description": "A example of theme extension",
-  "main": "index.js",
+  "description": "<%= label %>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "dependencies": {
-    "liveblog-default-theme": "liveblog/liveblog-default-theme#feature/extend"
+    "liveblog-default-theme": "liveblog/liveblog-default-theme"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
     "del": "^2.2.0",
     "eslint": "^3.19.0",
+    "event-stream": "^3.3.4",
     "graceful-fs": "^4.1.4",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
     "gulp-eslint": "^3.0.1",
     "gulp-html-replace": "^1.6.1",
+    "gulp-hub": "^0.8.0",
     "gulp-if": "^2.0.0",
     "gulp-inject": "^4.0.0",
     "gulp-less": "^3.0.5",
