@@ -1,9 +1,11 @@
 {
-    "label": "<%= label %>",
+    "label": "<%= description %>",
     "name": "<%= name %>",
     "version": "0.1.0",
-    "seoTheme": true,
-    "extend": "default",
+    "seoTheme": true,<% if (base === 'amp') {%>
+    "ampTheme": true,
+    "onlyOwnCss": true,<% } %>
+    "extends": "<%= base %>",
     "license": "AGPL-3.0",
     "devStyles": ["dist/<%= name %>-undefined.css"],
     "devScripts": ["dist/<%= name %>-undefined.js"],

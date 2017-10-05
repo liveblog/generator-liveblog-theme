@@ -21,14 +21,21 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'Your theme name',
-        default: this.appname.replace(/\s/g, '-')
+        message: 'Your theme name ( uniq key used internal )',
+        default: `${this.appname[0]}${this.appname.substr(1).replace(/([A-Z])/g,'-$1').replace(/\s/g, '-').toLowerCase()}`
       },
       {
         type: 'input',
-        name: 'label',
+        name: 'description',
         message: 'Your theme title',
         default: this.appname
+      },
+      {
+        type: 'list',
+        name: 'base',
+        message: 'Which theme you want to extend',
+        choices: ['default', 'amp'],
+        default: 'default'
       }
     ];
 
@@ -42,19 +49,19 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
-      { name: this.props.name, label: this.props.label }
+      this.props
     );
 
     this.fs.copyTpl(
       this.templatePath('_Makefile'),
       this.destinationPath('Makefile'),
-      { name: this.props.name }
+      this.props
     );
 
     this.fs.copyTpl(
       this.templatePath('_theme.json'),
       this.destinationPath('theme.json'),
-      { name: this.props.name, label: this.props.label }
+      this.props
     );
 
     this.fs.copy(
