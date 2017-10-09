@@ -1,0 +1,4 @@
+{
+  "<%= name %>.css": "<%= name %>-undefined.css",
+  "<%= name %>.js": "<%= name %>-undefined.js"
+}

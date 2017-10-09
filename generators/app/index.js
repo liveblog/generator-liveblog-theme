@@ -69,6 +69,17 @@ module.exports = class extends Generator {
       this.destinationPath('gulpfile.js')
     );
 
+    this.fs.copy(
+      this.templatePath('_rev-manifest.json'),
+      this.destinationPath('dist/rev-manifest.json'),
+      this.props
+    );
+
+    this.fs.copy(
+      this.templatePath('images'),
+      this.destinationPath('images')
+    );
+
     mkdirp('templates');
     mkdirp('less');
   }
