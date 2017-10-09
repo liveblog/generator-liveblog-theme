@@ -3,8 +3,7 @@
     "name": "<%= name %>",
     "version": "0.1.0",
     "seoTheme": true,<% if (base === 'amp') {%>
-    "ampTheme": true,
-    "onlyOwnCss": true,<% } %>
+    "ampTheme": true,<% } %>
     "extends": "<%= base %>",
     "license": "AGPL-3.0",
     "devStyles": ["dist/<%= name %>-undefined.css"],
