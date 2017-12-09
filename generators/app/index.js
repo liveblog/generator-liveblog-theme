@@ -80,6 +80,12 @@ module.exports = class extends Generator {
       this.destinationPath('images')
     );
 
+    this.fs.copyTpl(
+      this.templatePath('less/_theme.less'),
+      this.destinationPath('less/' + this.props.name + '.less'),
+      this.props
+    );
+
     mkdirp('templates');
     mkdirp('less');
   }
