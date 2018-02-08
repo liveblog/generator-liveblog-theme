@@ -8,6 +8,6 @@
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "liveblog-<%= base %>-theme": "liveblog/liveblog-<%= base %>-theme"
+    "liveblog-<%= base %>-theme": "latest"
   }
 }
