@@ -90,6 +90,11 @@ module.exports = class extends Generator {
       this.destinationPath('less/' + this.props.name + '.less'),
       this.props
     );
+    
+    this.fs.copyTpl(
+      this.templatePath('less/topImport.less'),
+      this.destinationPath('less/topImport.less')
+    );
 
     mkdirp('templates');
     mkdirp('less');
