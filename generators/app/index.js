@@ -3,6 +3,27 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
+const request = require('request');
+
+
+const retrieveVersions = (props) => {
+  const registryURL = `https://registry.npmjs.org/liveblog-${props.base}-theme`;
+  const reqOptions = {url: registryURL, json: true};
+
+  return new Promise((resolve, _reject) => {
+    request(reqOptions, (err, response, body) => {
+      // we define some basic fallback options in case of request errors
+      let themeVersions = ["latest"];
+      try {
+        themeVersions = Object.keys(body.versions);
+      } catch (e) { }
+
+      //let's reverse it to show latest 5 versions
+      themeVersions = themeVersions.reverse().slice(0, 5);
+      return resolve(themeVersions);
+    });
+  });
+}
 
 module.exports = class extends Generator {
   prompting() {
@@ -36,6 +57,12 @@ module.exports = class extends Generator {
         message: 'Which theme you want to extend',
         choices: ['default', 'amp'],
         default: 'default'
+      },
+      {
+        type: 'list',
+        name: 'version',
+        message: 'Please select the version you want to use for base theme',
+        choices: retrieveVersions
       }
     ];
 
@@ -90,7 +117,7 @@ module.exports = class extends Generator {
       this.destinationPath('less/' + this.props.name + '.less'),
       this.props
     );
-    
+
     this.fs.copyTpl(
       this.templatePath('less/topImport.less'),
       this.destinationPath('less/topImport.less')
