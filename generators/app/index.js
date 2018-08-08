@@ -55,7 +55,7 @@ module.exports = class extends Generator {
         type: 'list',
         name: 'base',
         message: 'Which theme you want to extend',
-        choices: ['default', 'amp'],
+        choices: ['default', 'amp', 'simple'],
         default: 'default'
       },
       {

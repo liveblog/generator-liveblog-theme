@@ -5,6 +5,7 @@
     "seoTheme": true,<% if (base === 'amp') {%>
     "ampTheme": true,<% } %>
     "extends": "<%= base %>",
+    "extendsFromPackage": "liveblog-<%= base %>-theme",
     "license": "AGPL-3.0",
     "devStyles": ["dist/<%= name %>-undefined.css"],
     "devScripts": ["dist/<%= name %>-undefined.js"],
