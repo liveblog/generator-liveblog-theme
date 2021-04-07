@@ -1,9 +1,9 @@
 sudo: false
 language: node_js
 node_js:
-  - '7'
+  - '10.x'
 cache:
   directories:
     - "node_modules"
 before_install:
-  - npm i -g npm@4.0.2
+  - npm i -g npm@6.13.4
