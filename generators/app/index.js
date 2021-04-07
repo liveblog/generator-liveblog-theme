@@ -119,6 +119,11 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
+      this.templatePath('less/reset.less'),
+      this.destinationPath('less/reset.less')
+    );
+
+    this.fs.copyTpl(
       this.templatePath('less/topImport.less'),
       this.destinationPath('less/topImport.less')
     );
