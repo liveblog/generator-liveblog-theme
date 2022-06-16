@@ -7,10 +7,10 @@ The generator allows you to easily create and scaffold your own liveblog themes.
 
 ## Getting Started
 
-First some dependencies need to be installed:
+First some dependencies need to be installed (ignore `yo doctor` warnings for now):
 
 ```bash
-npm install -g yo generator-liveblog-theme
+npm install -g yo@3.1.0 generator-liveblog-theme
 ```
 
 Then, initiate the generator inside an empty working directory
